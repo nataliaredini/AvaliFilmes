@@ -46,36 +46,38 @@ $(document).ready(function () {
         dataCon = data;
         var rows = '';
         var i = 0;
+    
         $.each(data, function (key, value) {
             rows += '<tr>';
-            rows += '<td>' + value.id + '</td>';
             rows += '<td>' + value.titulo + '</td>';
             rows += '<td>' + value.diretor + '</td>';
             rows += '<td>' + value.anoLancamento + '</td>';
             rows += '<td>' + value.genero + '</td>';
             rows += '<td>' + value.nota + '</td>';
-            rows += '<td data-id="' + i++ + '">';
+            rows += '<td>' + value.comentario + '</td>'; 
+            rows += '<td data-index="' + i + '">';
             rows += '<button data-toggle="modal" data-target="#edit-item" class="btn btn-primary edit-item">Editar</button> ';
             rows += '<button class="btn btn-danger remove-item">Deletar</button>';
             rows += '</td>';
             rows += '</tr>';
+            i++;
         });
-
-        $("tbody").html(rows);
+    
+        $("#filmes-tbody").html(rows);
     }
 
     function createHeadTable() {
         var rows = '<tr>';
-        rows += '<th>ID</th>';
         rows += '<th>Título</th>';
         rows += '<th>Diretor</th>';
         rows += '<th>Ano de Lançamento</th>';
         rows += '<th>Gênero</th>';
         rows += '<th>Nota</th>';
+        rows += '<th>Comentário</th>';
         rows += '<th width="200px">Ação</th>';
         rows += '</tr>';
         $("thead").html(rows);
-
+    
         $("#filtro").attr("placeholder", "Entre com o título do filme");
     }
 
@@ -107,6 +109,11 @@ $(document).ready(function () {
                 <div class="help-block with-errors"></div>
             </div>
             <div class="form-group">
+            <label class="control-label" for="comentario">Comentário</label>
+            <input type="text" name="comentario" class="form-control" required />
+            <div class="help-block with-errors"></div>
+            </div> <!
+            <div class="form-group">
                 <button type="submit" class="btn crud-submit btn-success">Salvar</button>
             </div>
         `;
@@ -115,7 +122,7 @@ $(document).ready(function () {
 
     function createEditForm() {
         var html = `
-            <input type="hidden" name="id" class="edit-id">
+            <input type="hidden" name="idFilme" class="edit-idFilme">
             <div class="form-group">
                 <label class="control-label" for="titulo">Título</label>
                 <input type="text" name="titulo" class="form-control" required />
@@ -141,6 +148,10 @@ $(document).ready(function () {
                 <input type="number" name="nota" class="form-control" step="0.1" min="0" max="10" required />
                 <div class="help-block with-errors"></div>
             </div>
+                <div class="form-group">
+                <label class="control-label" for="comentario">Comentário</label>
+                <input type="text" name="comentario" class="form-control" required />
+                <div class="help-block with-errors"></div>
             <div class="form-group">
                 <button type="submit" class="btn crud-submit-edit btn-success">Salvar</button>
             </div>
@@ -156,18 +167,20 @@ $(document).ready(function () {
         var anoLancamento = $("#create-item").find("input[name='anoLancamento']").val();
         var genero = $("#create-item").find("input[name='genero']").val();
         var nota = $("#create-item").find("input[name='nota']").val();
+        var comentario = $("#create-item").find("input[name='comentario']").val();
 
         $.ajax({
             dataType: 'json',
             type: 'POST',
             url: form_action,
-            data: { titulo: titulo, diretor: diretor, anoLancamento: anoLancamento, genero: genero, nota: nota }
+            data: { titulo: titulo, diretor: diretor, anoLancamento: anoLancamento, genero: genero, nota: nota, comentario:comentario }
         }).done(function (data) {
             $("#create-item").find("input[name='titulo']").val('');
             $("#create-item").find("input[name='diretor']").val('');
             $("#create-item").find("input[name='anoLancamento']").val('');
             $("#create-item").find("input[name='genero']").val('');
             $("#create-item").find("input[name='nota']").val('');
+            $("#create-item").find("input[name='comentario']").val('');
             getPageData();
             $(".modal").modal('hide');
             toastr.success(data.msg, 'Alerta de Sucesso', { timeOut: 5000 });
@@ -175,52 +188,64 @@ $(document).ready(function () {
     });
 
     $("body").on("click", ".edit-item", function () {
-        var index = $(this).parent("td").data('id');
-
-        var id = dataCon[index].id;
+        var index = $(this).closest("td").data('index');
+    
+        var idFilme = dataCon[index].idFilme;
         var titulo = dataCon[index].titulo;
         var diretor = dataCon[index].diretor;
         var anoLancamento = dataCon[index].anoLancamento;
         var genero = dataCon[index].genero;
         var nota = dataCon[index].nota;
-
-        $("#edit-item").find("input[name='id']").val(id);
+        var comentario = dataCon[index].comentario;
+    
+        $("#edit-item").find("input[name='idFilme']").val(idFilme);
         $("#edit-item").find("input[name='titulo']").val(titulo);
         $("#edit-item").find("input[name='diretor']").val(diretor);
         $("#edit-item").find("input[name='anoLancamento']").val(anoLancamento);
         $("#edit-item").find("input[name='genero']").val(genero);
         $("#edit-item").find("input[name='nota']").val(nota);
+        $("#edit-item").find("input[name='comentario']").val(comentario);
+    });
+
+    $("body").on("click", ".remove-item", function () {
+        var index = $(this).closest("td").data("index");
+        var idFilme = dataCon[index].idFilme;
+    
+        if (confirm("Tem certeza que deseja deletar este filme?")) {
+            $.ajax({
+                dataType: 'json',
+                type: 'POST',
+                url: 'deleteFilme.php',
+                data: { idFilme: idFilme }
+            }).done(function (data) {
+                toastr.success(data.msg || "Filme removido com sucesso!", 'Sucesso');
+                getPageData();
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                toastr.error("Erro ao remover o filme: " + errorThrown, "Erro");
+            });
+        }
     });
 
     $(".crud-submit-edit").click(function (e) {
         e.preventDefault();
         var form_action = $("#edit-item").find("form").attr("action");
-        var id = $("#edit-item").find("input[name='id']").val();
+        var idFilme = $("#edit-item").find("input[name='idFilme']").val();
         var titulo = $("#edit-item").find("input[name='titulo']").val();
         var diretor = $("#edit-item").find("input[name='diretor']").val();
         var anoLancamento = $("#edit-item").find("input[name='anoLancamento']").val();
         var genero = $("#edit-item").find("input[name='genero']").val();
         var nota = $("#edit-item").find("input[name='nota']").val();
+        var comentario = $("#edit-item").find("input[name='comentario']").val();
 
         $.ajax({
             dataType: 'json',
             type: 'POST',
             url: form_action,
-            data: { id: id, titulo: titulo, diretor: diretor, anoLancamento: anoLancamento, genero: genero, nota: nota }
+            data: { idFilme: idFilme, titulo: titulo, diretor: diretor, anoLancamento: anoLancamento, genero: genero, nota: nota, comentario: comentario }
         }).done(function (data) {
             getPageData();
             $(".modal").modal('hide');
             toastr.success(data.msg, 'Alerta de Sucesso', { timeOut: 5000 });
         });
     });
-
-    function getDataSelect(type, select) {
-        $.ajax({
-            dataType: 'json',
-            url: 'Acesso' + type,
-            data: { page: page }
-        }).done(function (data) {
-            manageSelectOption(data.data, select, type);
-        });
-    }
 });

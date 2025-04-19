@@ -3,7 +3,6 @@ include_once './conexao.php';
 include_once './usuario.php';
 
 
-session_start();
 if(isset($_POST['usuario'])){
     $usuario = $_POST['usuario'];
     $senha = $_POST['senha'];
@@ -38,7 +37,7 @@ if(isset($_POST['usuario'])){
     <meta charset="UTF-8">
     <title>Página Inicial</title>
 
-    <!-- Bootstrap e outros plugins -->
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
@@ -145,12 +144,12 @@ if(isset($_POST['usuario'])){
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Título</th>
                 <th>Diretor</th>
                 <th>Ano de Lançamento</th>
                 <th>Gênero</th>
                 <th>Nota</th>
+                <th>Comentários</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -186,6 +185,8 @@ if(isset($_POST['usuario'])){
                             <input type="text" class="form-control" id="genero" name="genero" required></div>
                         <div class="form-group"><label for="nota">Nota:</label>
                             <input type="number" class="form-control" id="nota" name="nota" step="0.1" min="0" max="10" required></div>
+                            <div class="form-group"><label for="comentario">Comentário:</label>
+                            <input type="text" class="form-control" id="comentario" name="comentario" required></div>
                         <button type="submit" class="btn btn-primary">Salvar</button>
                     </form>
                 </div>
@@ -203,7 +204,7 @@ if(isset($_POST['usuario'])){
                 </div>
                 <div class="modal-body">
                     <form data-toggle="validator" action="updateFilme.php" method="POST">
-                        <input type="hidden" id="editIdFilme" name="idFilme">
+                        <input type="hidden" id="editidFilme" name="idFilme">
                         <div class="form-group"><label for="editTitulo">Título:</label>
                             <input type="text" class="form-control" id="editTitulo" name="titulo" required></div>
                         <div class="form-group"><label for="editDiretor">Diretor:</label>
@@ -214,7 +215,9 @@ if(isset($_POST['usuario'])){
                             <input type="text" class="form-control" id="editGenero" name="genero" required></div>
                         <div class="form-group"><label for="editNota">Nota:</label>
                             <input type="number" class="form-control" id="editNota" name="nota" step="0.1" min="0" max="10" required></div>
-                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <div class="form-group"><label for="editcomentario">Comentário:</label>
+                            <input type="text" class="form-control" id="editcomentario" name="comentario" required></div>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
                     </form>
                 </div>
             </div>

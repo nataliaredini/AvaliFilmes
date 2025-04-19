@@ -62,7 +62,7 @@ if (isset($_POST['nome'])){
         </div>
     </nav>
 
-    <!-- Formulário -->
+
     <div class="container">
         <div class="card mx-auto" style="max-width: 500px;">
             <div class="card-header">
@@ -90,7 +90,7 @@ if (isset($_POST['nome'])){
         </div>
     </div>
 
-    <!-- Bootstrap JS Bundle -->
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
