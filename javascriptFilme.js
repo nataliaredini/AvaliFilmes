@@ -9,6 +9,11 @@ $(document).ready(function () {
     createEditForm();
     manageData();
 
+    $("#filtro").on('input', function() {
+        page = 1; 
+        getPageData();
+    });
+
     function manageData() {
         $.ajax({
             dataType: 'json',
@@ -79,6 +84,20 @@ $(document).ready(function () {
         $("thead").html(rows);
     
         $("#filtro").attr("placeholder", "Entre com o título do filme");
+    }
+
+    function getPageData() {
+        var filtro = $("#filtro").val(); 
+        $.ajax({
+            dataType: 'json',
+            url: 'getFilme.php',
+            data: { 
+                page: page,
+                filtro: filtro
+            }
+        }).done(function(data) {
+            manageRow(data.data);
+        });
     }
 
     function createForm() {
@@ -205,6 +224,9 @@ $(document).ready(function () {
         $("#edit-item").find("input[name='genero']").val(genero);
         $("#edit-item").find("input[name='nota']").val(nota);
         $("#edit-item").find("input[name='comentario']").val(comentario);
+
+      
+
     });
 
     $("body").on("click", ".remove-item", function () {
@@ -212,6 +234,7 @@ $(document).ready(function () {
         var idFilme = dataCon[index].idFilme;
     
         if (confirm("Tem certeza que deseja deletar este filme?")) {
+            
             $.ajax({
                 dataType: 'json',
                 type: 'POST',

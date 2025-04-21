@@ -12,8 +12,9 @@ if (isset($_POST['titulo']) && isset($_POST['diretor']) && isset($_POST['anoLanc
         " . intval($_POST['anoLancamento']) . ",
         '" . $conn->real_escape_string($_POST['genero']) . "',
         " . floatval($_POST['nota']) . ",
-        '" . $conn->real_escape_string($_POST['comentario']) . "',
+        '" . $conn->real_escape_string($_POST['comentario']) . "'
     )";
+
 
 
     if ($conn->query($sql) === TRUE) {

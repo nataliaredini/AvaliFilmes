@@ -5,8 +5,9 @@ header('Content-Type: application/json');
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['idFilme'])) {
     $idFilme = $_POST['idFilme'];
 
-    $stmt = $pdo->prepare("DELETE FROM filmes WHERE idFilme = ?");
-    if ($stmt->execute([$idFilme])) {
+    $stmt = $conn->prepare("DELETE FROM filmes WHERE idFilme = ?");
+    $stmt->bind_param("i", $idFilme);
+    if ($stmt->execute()) {
         echo json_encode(["msg" => "Filme deletado com sucesso!"]);
     } else {
         echo json_encode(["msg" => "Erro ao deletar o filme."]);

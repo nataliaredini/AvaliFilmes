@@ -127,7 +127,7 @@ if(isset($_POST['usuario'])){
 <div class="input-group" style="margin-bottom: 20px; width: 33.33%; max-width: 400px;">
     <input type="text" class="form-control" id="filtro" placeholder="Entre com o filtro" name="filtro" style="margin-right: 0;">
     <div class="input-group-btn">
-        <button type="button" class="btn btn-primary" id="btFiltro" style="margin-left: -1px;">Filtrar</button>
+        <button type="button" class="btn btn-primary" id="btFiltro" style="margin-left: -1px;">Procurar por Filme</button>
     </div>
 </div>
 
