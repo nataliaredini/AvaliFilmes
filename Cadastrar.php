@@ -21,8 +21,16 @@ if (isset($_POST['nome'])){
     <meta charset="UTF-8">
     <title>Página de Menu</title>
 
+    <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <style>
+                .navbar-brand {
+            font-family: 'Poetsen One', sans-serif !important;
+            color: #9932CC !important; 
+            font-size: 24px; 
+        }
+
         body {
             background-color: #B0C4DE;
         }

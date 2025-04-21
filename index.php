@@ -39,6 +39,7 @@ if(isset($_POST['usuario'])){
 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.3.1/jquery.twbsPagination.min.js"></script>
@@ -48,6 +49,13 @@ if(isset($_POST['usuario'])){
     <script src="javascript<?php echo $classe; ?>.js"></script>
 
     <style>
+
+        .navbar-brand {
+            font-family: 'Poetsen One', sans-serif !important;
+            color: #9932CC !important; 
+            font-size: 24px; 
+        }
+
         body {
             background-color: #B0C4DE;
         }
