@@ -2,13 +2,6 @@
 include_once './conexao.php';
 include_once './usuario.php';
 
-session_start();
-
-if (!isset($_SESSION ['user'])){
-    $_SESSION['msg'] = "É necessário logar antes de acessar a página de menu!!";
-    header("Location: index.php");
-    exit;   
-}
 
 if (isset($_POST['nome'])){
     $conn = mysqli_query($conn,
@@ -25,7 +18,7 @@ if (isset($_POST['nome'])){
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <style>
-                .navbar-brand {
+        .navbar-brand {
             font-family: 'Poetsen One', sans-serif !important;
             color: #9932CC !important; 
             font-size: 24px; 
@@ -34,17 +27,21 @@ if (isset($_POST['nome'])){
         body {
             background-color: #B0C4DE;
         }
+
         .navbar .navbar-text {
             color: #fff !important;
         }
+
         .card-header {
             background-color: #9932CC !important;
             color: #fff !important;
         }
+
         .btn-custom {
             background-color: #9932CC;
             color: white;
         }
+
         .btn-custom:hover {
             background-color: #9932CC;
             color: white;
@@ -58,18 +55,10 @@ if (isset($_POST['nome'])){
             <a class="navbar-brand" href="#">AvaliFilmes</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="index.php">Filmes</a></li>
-                    <li class="nav-item"><a class="nav-link" href="listar.php">Usuários</a></li>
-                    <li class="nav-item"><a class="nav-link" href="cadastrar.php">Cadastrar</a></li>
-                    <li class="nav-item"><a class="nav-link" href="logout.php">Sair</a></li>
                 </ul>
-                <span class="navbar-text">
-                    Usuário logado: <?php echo $_SESSION['user']->nome; ?>
-                </span>
             </div>
         </div>
     </nav>
-
 
     <div class="container">
         <div class="card mx-auto" style="max-width: 500px;">
@@ -77,6 +66,12 @@ if (isset($_POST['nome'])){
                 <h5 class="mb-0">Cadastrar Usuário</h5>
             </div>
             <div class="card-body">
+                <?php if (!empty($mensagem)): ?>
+                    <div class="alert alert-<?php echo $tipoMensagem; ?> text-center" role="alert">
+                        <?php echo $mensagem; ?>
+                    </div>
+                <?php endif; ?>
+
                 <form action="cadastrar.php" method="POST">
                     <div class="mb-3">
                         <label for="nome" class="form-label">Nome:</label>
@@ -94,12 +89,14 @@ if (isset($_POST['nome'])){
                         <button type="submit" class="btn btn-custom">Cadastrar</button>
                     </div>
                 </form>
+
+                <div class="mt-3 text-center">
+                    <a href="index.login.php" class="btn btn-custom">Voltar para Login</a>
+                </div>
             </div>
         </div>
     </div>
 
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>
 </html>

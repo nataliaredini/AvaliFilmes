@@ -1,7 +1,7 @@
-<?php session_start();
-include_once './conexao.php';
+<?php 
 include_once './usuario.php';
-
+session_start();
+include_once './conexao.php';
 
 if(isset($_POST['usuario'])){
     $usuario = $_POST['usuario'];
@@ -28,9 +28,8 @@ if(isset($_POST['usuario'])){
      header("Location: index.login.php");
         exit;
     }   
-    $classe = isset($_GET["classe"]) ? $_GET["classe"] : "Filme"; 
+    $classe = isset($_GET["classe"]) ? $_GET["classe"] : "Filme";
     ?>
-
 
 
 <head>
@@ -77,6 +76,10 @@ if(isset($_POST['usuario'])){
         .page-title-box h2 {
             color: white;
             margin: 0;
+        }
+        .navbar .navbar-text {
+            color:rgb(255, 255, 255) !important;
+            float: right;
         }
         .btn-success,
         .btn-primary {
@@ -125,9 +128,12 @@ if(isset($_POST['usuario'])){
             <ul class="nav navbar-nav" style="display: inline-block;">
                 <li><a href="index.php?classe=Filme">Filmes</a></li>
                 <li><a href="listar.php?classe=Usuário">Usuários</a></li>
-                <li><a href="cadastrar.php">Cadastrar</a></li>
                 <li><a href="logout.php?classe=logout">Sair</a></li>
             </ul>
+            <span class="navbar-text">
+                    Usuário logado: <?php echo $_SESSION['user']->nome; ?>
+                </span>
+            </div>
         </div>
     </div>
 </nav>
@@ -152,6 +158,8 @@ if(isset($_POST['usuario'])){
     <table class="table table-bordered">
         <thead>
             <tr>
+                <th>Usuario</th>
+                <th>Título</th>
                 <th>Título</th>
                 <th>Diretor</th>
                 <th>Ano de Lançamento</th>

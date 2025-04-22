@@ -1,9 +1,9 @@
 <?php
 class Usuario{
-    public $codigo,$nome, $login, $senha;
+    public $idUsuario,$nome, $login, $senha;
     
-    function __construct( $codigo, $nome, $login, $senha){
-        $this->codigo = $codigo;
+    function __construct( $idUsuario, $nome, $login, $senha){
+        $this->idUsuario = $idUsuario;
         $this->nome = $nome;
         $this->senha = $senha;
         $this->login = $login;

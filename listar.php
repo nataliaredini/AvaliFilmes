@@ -64,7 +64,6 @@ if (!isset($_SESSION['user'])){
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" href="index.php">Filmes</a></li>
                     <li class="nav-item"><a class="nav-link" href="listar.php">Usuários</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Cadastrar.php">Cadastrar</a></li>
                     <li class="nav-item"><a class="nav-link" href="logout.php">Sair</a></li>
                 </ul>
                 <span class="navbar-text">
@@ -84,6 +83,7 @@ if (!isset($_SESSION['user'])){
                     <th scope="col">Código</th>
                     <th scope="col">Nome</th>
                     <th scope="col">Login</th>
+                    <th scope="col">Senha</th>
                 </tr>
             </thead>
             <tbody>
@@ -95,13 +95,14 @@ if (!isset($_SESSION['user'])){
                         <td><?php echo $dados['idUsuario']; ?></td>
                         <td><?php echo $dados['nome']; ?></td>
                         <td><?php echo $dados['login']; ?></td>
+                        <td><?php echo $dados['senha']; ?></td>
                     </tr>
                 <?php } ?>
             </tbody>
         </table>
     </div>
 
-    <!-- Bootstrap JS Bundle -->
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

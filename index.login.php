@@ -60,6 +60,11 @@ p, input, label {
             background-color: #DDDDDD; 
             color: #9932CC; 
         }
+    
+        .btn-primary {
+    font-family: 'Poetsen One', sans-serif !important;
+}
+
     </style>
 </head>
 <body>
@@ -89,8 +94,14 @@ p, input, label {
                             <td><input type="password" name="senha" class="form-control" required /></td>
                         </tr>
                         <tr>
-                            <td colspan="2">
-                                <input type="submit" class="btn btn-primary" value="Entrar" />
+                        <tr>
+                            <td colspan="2" style="text-align: center;">
+                                <input type="submit" class="btn btn-primary" value="Entrar" style="margin-right: 10px;" />
+                                <a href="cadastrar.php" class="btn btn-default" style="background-color: #D3D3D3; color: #9932CC;">
+                                    Cadastrar novo usuário
+                                </a>
+                            </td>
+                                
                             </td>
                         </tr>
                     </tbody>

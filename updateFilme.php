@@ -1,5 +1,14 @@
 <?php
-include 'conexao.php';
+include_once './conexao.php';
+include_once './usuario.php';
+session_start();
+
+if (!isset($_SESSION['user'])){
+    $_SESSION['msg'] = "É necessário logar antes de acessar a página de menu!!";
+    header("Location: index.login.php");
+    exit;   
+}
+
 
 header('Content-type: application/json');
 

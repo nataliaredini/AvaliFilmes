@@ -54,6 +54,7 @@ $(document).ready(function () {
     
         $.each(data, function (key, value) {
             rows += '<tr>';
+            rows += '<td>' + value.idUsuario + '</td>';
             rows += '<td>' + value.titulo + '</td>';
             rows += '<td>' + value.diretor + '</td>';
             rows += '<td>' + value.anoLancamento + '</td>';
@@ -73,6 +74,7 @@ $(document).ready(function () {
 
     function createHeadTable() {
         var rows = '<tr>';
+        rows += '<th>idUsuario</th>';
         rows += '<th>Título</th>';
         rows += '<th>Diretor</th>';
         rows += '<th>Ano de Lançamento</th>';
